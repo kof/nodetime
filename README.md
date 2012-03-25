@@ -8,7 +8,7 @@ Nodetime profiler running within the application securely sends profiling data t
 
 ## Installation and Usage
 
-Install Nodetime with npm `npm install nodetime`. Ideally it should be the first require statement in your node application, e.g. at the first line of your main module `require('nodetime').profile()`. After your start your app, a link of the form `https://nodetime.com/[session]` will be printed to the console. The session will be your unique id for accessing the profiler. Copy the link into your browser and you're done! No need to refresh the browser, new data will appear as it arrives from the server.
+Install Nodetime with npm `npm install nodetime`. Ideally it should be the first require statement in your node application, e.g. at the first line of your main module `require('nodetime').profile()`. After your start your app, a link of the form `https://nodetime.com/[session]` will be printed to the console. The session will be your unique id for accessing the profiler server. Copy the link into your browser and you're done! No need to refresh the browser, new data will appear as it arrives from the profiler.
 
 
 ## Modes of Operation

@@ -1,10 +1,10 @@
 {   
 	"name" : "nodetime",
-	"version" : "0.1.0",
+	"version" : "0.1.1",
 	"description" : "Application performance profiler",
 	"author": "Dmitri Melikyan <dmitri@rapidlogix.com>", 
 	"homepage": "http://nodetime.com",
-	"keywords": ["profiling", "instrumentation", "response time", "real-time", "performance", "bottleneck"],
+	"keywords": ["profiling", "instrumentation", "response time", "real-time", "performance", "bottlenecks"],
 	"contributors": [
 	],
 	"main": "./index.js",
