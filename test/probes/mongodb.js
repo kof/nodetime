@@ -27,30 +27,30 @@ var Server = require('mongodb').Server;
 var client = new Db('test', new Server("127.0.0.1", 27017, {}));
 
 module.exports = function(cb) {
-	client.open(function(err) {
-		client.collection('test_col', function(err, collection) {
-			if(err) {
-				console.error(err);
-				cb();
-				return;
-			}
-	
-			collection.insert({test:123}, function(err, docs) {
-				if(err) {
-					console.error(err);
-					cb();
-					return;
-				}
+  client.open(function(err) {
+    client.collection('test_col', function(err, collection) {
+      if(err) {
+        console.error(err);
+        cb();
+        return;
+      }
+  
+      collection.insert({test:123}, function(err, docs) {
+        if(err) {
+          console.error(err);
+          cb();
+          return;
+        }
 
-				collection.count({test:123}, function(err) {
-					if(err) {
-						console.error(err);
-					}
-	
-					cb();
-				});
-			});
-		});
-	});
+        collection.count({test:123}, function(err) {
+          if(err) {
+            console.error(err);
+          }
+  
+          cb();
+        });
+      });
+    });
+  });
 };
 

@@ -32,7 +32,7 @@ app.set('views', __dirname);
 app.set('view options', {layout: false});
 
 app.get('/', function(req, res){
-	res.render('app-socket.io.ejs');
+  res.render('app-socket.io.ejs');
 });
 
 app.listen(3000);
@@ -41,15 +41,15 @@ app.listen(3000);
 var io = require('socket.io').listen(app);
 
 io.sockets.on('connection', function (socket) {
-	socket.on('ping', function (data) {
-		probes(function() {
-			socket.emit('pong', data + ' first');
-	
-			probes(function() {
-				socket.emit('pong', data + ' second');
-			});
-		});
-	});
+  socket.on('ping', function (data) {
+    probes(function() {
+      socket.emit('pong', data + ' first');
+  
+      probes(function() {
+        socket.emit('pong', data + ' second');
+      });
+    });
+  });
 });
 
 console.log('socket.io app started');

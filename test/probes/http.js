@@ -27,16 +27,16 @@ var http = require('http');
 var https = require('https');
 
 module.exports = function(cb) {
-	http.get({hostname: 'search.cliqz.com'}, function(cRes) {
-		cRes.on('end', function() {	
-			cb();
-		});
+  http.get({hostname: 'search.cliqz.com'}, function(cRes) {
+    cRes.on('end', function() { 
+      cb();
+    });
 
-		cRes.on('error', function(err) {
-			console.error(err);
+    cRes.on('error', function(err) {
+      console.error(err);
 
-			cb();
-		});
-	});
+      cb();
+    });
+  });
 };
 

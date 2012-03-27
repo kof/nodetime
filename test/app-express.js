@@ -30,9 +30,9 @@ var express = require('express');
 var app = express.createServer();
 
 app.get('/', function(req, res){
-	probes(function() {
-    		res.send('Hello World');
-	});
+  probes(function() {
+        res.send('Hello World');
+  });
 });
 
 app.listen(3000);
