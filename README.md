@@ -1,4 +1,4 @@
-Nodetime - Application Performance Profiler for Node.js
+Nodetime - Performance Profiler for Node.js
 ===
 
 Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client and sockets, Express, Socket.io, Redis, MongoDB and MySQL.
