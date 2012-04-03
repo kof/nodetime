@@ -1,6 +1,6 @@
 {   
   "name" : "nodetime", 
-  "version" : "0.1.5",
+  "version" : "0.1.6",
   "description" : "Application performance profiler",
   "author": "Dmitri Melikyan <dmitri@rapidlogix.com>", 
   "homepage": "http://nodetime.com", 
