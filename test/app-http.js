@@ -22,7 +22,11 @@
  */
 
 
-require('nodetime').profile({debug: true, stdout: true});
+var nodetime = require('nodetime');
+nodetime.on('session', function(id) { 
+  console.log('session', id);
+});
+nodetime.profile({debug: true, stdout: false});
 
 process.on('uncaughtException', function (err) {
   console.error(err, err.stack)
