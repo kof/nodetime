@@ -24,6 +24,10 @@
 
 require('nodetime').profile({debug: true});
 
+process.on('uncaughtException', function (err) {
+  console.error(err, err.stack)
+});
+
 var probes = require('./probes');
 
 var express = require('express');
@@ -42,7 +46,7 @@ var io = require('socket.io').listen(app);
 
 io.sockets.on('connection', function (socket) {
   socket.on('ping', function (data) {
-    probes(function() {
+    probes(process.argv.slice(2), function() {
       socket.emit('pong', data + ' first');
   
       probes(function() {

@@ -24,13 +24,17 @@
 
 require('nodetime').profile({debug: true});
 
+process.on('uncaughtException', function (err) {
+  console.error(err, err.stack)
+});
+
 var probes = require('./probes');
 
 var express = require('express');
 var app = express.createServer();
 
 app.get('/', function(req, res){
-  probes(function() {
+  probes(process.argv.slice(2), function() {
         res.send('Hello World');
   });
 });

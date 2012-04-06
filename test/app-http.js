@@ -22,13 +22,17 @@
  */
 
 
-require('nodetime').profile({debug: true});
+require('nodetime').profile({debug: true, stdout: true});
+
+process.on('uncaughtException', function (err) {
+  console.error(err, err.stack)
+});
 
 var probes = require('./probes');
 
 var http = require('http');
 http.createServer(function(req, res) {
-  probes(function() {
+  probes(process.argv.slice(2), function() {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Hello World\n');
   });   
