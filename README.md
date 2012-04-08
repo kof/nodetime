@@ -1,14 +1,34 @@
 Nodetime - Performance Profiler for Node.js
 ===
 
-Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client and sockets, Express, Socket.io, Redis, MongoDB and MySQL.
+Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client and sockets, Express, Socket.io, Redis, MongoDB, MySQL, PostgreSQL, Memcached and Cassandra. 
 
-Nodetime profiler running within the application securely sends profiling data to the Nodetime server, where it is stored and sent to the browser in real-time. Profiling data is kept on the server only for 10 minutes.
+The profiler running within the application securely sends profiling data to the Nodetime server, where it is stored and sent to the browser in real-time. Profiling data is kept on the server only for 10 minutes.
+
+Nodetime is a high level profiler. By hooking up to various APIs it gives developers clear API level visibility of performance, i.e. time and CPU usage, averages, stack traces and much more.
 
 
 ## Installation and Usage
 
-Install Nodetime with npm `npm install nodetime`. Ideally it should be the first require statement in your node application, e.g. at the first line of your main module `require('nodetime').profile()`. After your start your app, a link of the form `https://nodetime.com/[session]` will be printed to the console. The session will be your unique id for accessing the profiler server. Copy the link into your browser and you're done! No need to refresh the browser, new data will appear as it arrives from the profiler.
+Install Nodetime with npm 
+
+    npm install nodetime 
+
+Ideally it should be the first require statement in your node application, e.g. at the first line of your main module 
+
+    require('nodetime').profile()
+
+After your start your application, a link of the form `https://nodetime.com/[session]` will be printed to the console, where the session will be your unique id for accessing the profiler server. Copy the link into your browser and you're done! No need to refresh the browser, new data will appear as it arrives from the profiler.
+
+It is possible to get session id programmatically:
+
+    var nodetime = require('nodetime');
+    nodetime.on('session', function(id) {
+      // do something with session id here
+    });
+    nodetime.profile();
+
+In the nearest future it will also be possibe to create an account at nodetime.com and get a persistent token, which will never change.
 
 
 ## Modes of Operation
@@ -18,10 +38,9 @@ Nodetime automatically detects if an application is running under constant load,
 It is also possible to disable sending profiling data to the server and dump everything to the console by passing `stdout` flag at initialization `require('nodetime').profile({stdout: true})`
 
 
-## Run-time Overhead</h3>
+## Run-time Overhead
 
 Nodetime is based on probes hooked into API calls and callbacks using wrappers. It measures time, adds variables and creates objects, which naturally causes overhead. Although, the probes are mostly attached around calls involving network communication and are triggered only during server requests, which makes the overhead insignificant. However, it is recommended to measure overhead for specific cases.
-
 
 
 ## License
