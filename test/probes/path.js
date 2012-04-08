@@ -22,10 +22,10 @@
  */
 
 
-var fs = require('fs');
+var path = require('path');
 
 module.exports = function(cb) {
-  fs.exists('/tmp', 'fstest', function(err) {
+  path.exists('/tmp/fstest', function(err) {
     if(err) console.error(err);
 
     cb();
