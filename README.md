@@ -1,8 +1,7 @@
 Nodetime - Performance Profiler for Node.js
 ===
 
-Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client and sockets, Express, Socket.io, Redis, MongoDB, MySQL, PostgreSQL, Memcached and Cassandra. 
-
+Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client and sockets, Express, Socket.io, Redis, MongoDB, MySQL, PostgreSQL, Memcached and Cassandra. HTTP based data stores like CouchDB and Riak are supported via HTTP API. 
 The profiler running within the application securely sends profiling data to the Nodetime server, where it is stored and sent to the browser in real-time. Profiling data is kept on the server only for 10 minutes.
 
 Nodetime is a high level profiler. By hooking up to various APIs it gives developers clear API level visibility of performance, i.e. time and CPU usage, averages, stack traces and much more.
@@ -14,7 +13,7 @@ Install Nodetime with npm
 
     npm install nodetime 
 
-Ideally it should be the first require statement in your node application, e.g. at the first line of your main module 
+It should be the first require statement in your node application, e.g. at the first line of your main module 
 
     require('nodetime').profile()
 
@@ -27,8 +26,6 @@ It is possible to get session id programmatically:
       // do something with session id here
     });
     nodetime.profile();
-
-In the nearest future it will also be possibe to create an account at nodetime.com and get a persistent token, which will never change.
 
 
 ## Modes of Operation
