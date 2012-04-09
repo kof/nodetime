@@ -1,7 +1,8 @@
 Nodetime - Performance Profiler for Node.js
 ===
 
-Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client and sockets, Express, Socket.io, Redis, MongoDB, MySQL, PostgreSQL, Memcached and Cassandra. HTTP based data stores like CouchDB and Riak are supported via HTTP API. 
+Nodetime reveals response time and other internals of HTTP requests and underlying HTTP/database calls in your Node.js application. Coupled with related process and OS state information it enables tracing performance problems down to the root cause. Nodetime supports multiple APIs including native HTTP client, file system, cluster and sockets, Socket.io, Redis, MongoDB, MySQL, PostgreSQL, Memcached and Cassandra. HTTP based data stores like CouchDB and Riak are supported via HTTP API. 
+
 The profiler running within the application securely sends profiling data to the Nodetime server, where it is stored and sent to the browser in real-time. Profiling data is kept on the server only for 10 minutes.
 
 Nodetime is a high level profiler. By hooking up to various APIs it gives developers clear API level visibility of performance, i.e. time and CPU usage, averages, stack traces and much more.
@@ -17,7 +18,7 @@ It should be the first require statement in your node application, e.g. at the f
 
     require('nodetime').profile()
 
-After your start your application, a link of the form `https://nodetime.com/[session]` will be printed to the console, where the session will be your unique id for accessing the profiler server. Copy the link into your browser and you're done! No need to refresh the browser, new data will appear as it arrives from the profiler.
+After your start your application, a link of the form `https://nodetime.com/[session_id]` will be printed to the console, where the session will be your unique id for accessing the profiler server. Copy the link into your browser and you're done! No need to refresh the browser, new data will appear as it arrives from the profiler.
 
 It is possible to get session id programmatically:
 
@@ -33,6 +34,20 @@ It is possible to get session id programmatically:
 Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. Under load Nodetime will capture and send only the slowest requests and related information. In debug mode it will send all requests to the profiler server. 
 
 It is also possible to disable sending profiling data to the server and dump everything to the console by passing `stdout` flag at initialization `require('nodetime').profile({stdout: true})`
+
+All options:
+
+`headless` if true, no data is sent to the server
+`stdout` if true, dumps samples using console.log. Also sets `headless` to true. Explicitely set `headless` to false if you want both.
+`debug` used for debugging nodetime itself, so hopefully you won't need it.
+
+ You can always get the samples just by subscribing
+
+    nodetime.on('sample', function(sample) {
+      // do something with the sample
+    });
+
+If your application is under some load, only slowest samples are emitted every minute. Otherwise they are emitted after the requests.
 
 
 ## Run-time Overhead
