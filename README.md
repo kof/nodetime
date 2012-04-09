@@ -37,17 +37,37 @@ It is also possible to disable sending profiling data to the server and dump eve
 
 All options:
 
-`headless` if true, no data is sent to the server
-`stdout` if true, dumps samples using console.log. Also sets `headless` to true. Explicitely set `headless` to false if you want both.
-`debug` used for debugging nodetime itself, so hopefully you won't need it.
-
- You can always get the samples just by subscribing
+ You can always get the samples by subscribing to `sample` event:
 
     nodetime.on('sample', function(sample) {
       // do something with the sample
     });
 
-If your application is under some load, only slowest samples are emitted every minute. Otherwise they are emitted after the requests.
+If your application is under some load, only slowest samples are emitted every minute. Otherwise they are emitted after the requests. Important: the stucture of sample object will not be kept backwards compatible in future versions.
+
+
+## API
+
+`require('nodetime')` - returns a singleton instance of Nodetime object
+
+
+Methods:
+
+`profile(options)` - starts the profiler. 
+Options:
+`headless` - if true, no data is sent to the server.
+`stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitely set `headless` to false if you want both, the dump and sending to Nodetime server.
+`debug` - used for debugging nodetime itself, so hopefully you won't need it.
+
+
+Events:
+
+`on('session', function(id) {})`
+Emitted when a unique session id is received from the server. The event is not emitted if in `headless` mode.
+
+`on('sample', function(sample) {})`
+Sample object represents a profiled request. If an application is under some load, only slowest samples are emitted every minute. Otherwise samples are emitted after each request. Important: the stucture of sample object will not be kept backwards compatible in future versions. 
+
 
 
 ## Run-time Overhead
