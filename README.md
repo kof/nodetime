@@ -56,7 +56,7 @@ It is also possible to disable sending profiling data to the server and dump eve
 `profile(options)` - starts the profiler. Options are:
 
 * `headless` - if true, no data is sent to the server
-* `stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitely set `headless` to false if you want both, the dump and sending to Nodetime server
+* `stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitly set `headless` to false if you want both, the dump and sending to Nodetime server
 * `debug` - used for debugging nodetime itself, so hopefully you won't need it
 
 

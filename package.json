@@ -1,7 +1,7 @@
 {   
   "name" : "nodetime", 
   "version" : "0.2.0",
-  "description" : "Application performance profiler",
+  "description" : "Performance Profiler",
   "author": "Dmitri Melikyan <dmitri@rapidlogix.com>", 
   "homepage": "http://nodetime.com", 
   "keywords": ["profiling", "instrumentation", "response time", "real-time", "performance", "bottlenecks"],
@@ -26,7 +26,9 @@
     "mysql": ">=0.9.5",
     "pg": ">=0.6.17",
     "memcached": ">=0.0.8",
-    "memcache": ">=0.3.0"
+    "memcache": ">=0.3.0",
+    "cassandra-client": ">=0.9.1",
+    "cassandra": ">=0.1.0"
   },
   "engines": { 
     "node" : ">=0.6.0" 

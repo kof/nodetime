@@ -22,29 +22,27 @@
  */
 
 
-var nodetime = require('nodetime');
-nodetime.on('session', function(token) { 
-  console.log('session', token);
-});
-nodetime.on('sample', function(sample) { 
-  console.log('sample');
-});
+var cc = require('cassandra-client');
 
-nodetime.profile({debug: true, stdout: true});
+module.exports = function(cb) {
+  var Connection = cc.Connection;
+  var client = new Connection({host:'localhost', port:9160, keyspace:'TestKeyspace'});
+  
+  client.connect(function(err) {
+    if(err) {
+      cb(err);
+      return;
+    }
 
-process.on('uncaughtException', function (err) {
-  console.error(err, err.stack)
-});
+    client.execute('SELECT * FROM TestColumnFamily', [], function(err, rows) {
+      if(err) {
+        cb(err);
+      } 
+      else {
+        console.log(rows);
+        cb();
+      }
+    });
+  });
+};
 
-var probes = require('./probes');
-
-var http = require('http');
-http.createServer(function(req, res) {
-  probes(process.argv.slice(2), function() {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World\n');
-  });   
-
-}).listen(3000);
-
-console.log('http app started');
