@@ -64,7 +64,7 @@ It is also possible to disable sending profiling data to the server and dump eve
 
 `on('session', function(id) {})` - Emitted when a unique session id is received from the server. The event is not emitted if in `headless` mode.
 
-`on('sample', function(sample) {})` - Sample object represents a profiled request. If an application is under some load, only slowest samples are emitted every minute. Otherwise samples are emitted after each request. **Important:** the stucture of sample object will not be kept backwards compatible in future versions. 
+`on('sample', function(sample) {})` - Sample object represents a profiled request. If an application is under some load, only slowest samples are emitted every minute. Otherwise samples are emitted after each request. **Important:** the structure of sample object will not be kept backwards compatible in future versions. 
 
 
 
