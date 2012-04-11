@@ -68,10 +68,11 @@ It is also possible to disable sending profiling data to the server and dump eve
 
 
 
-## Run-time Overhead
+## Run-time Overhead and Stability
 
 Nodetime is based on probes hooked into API calls and callbacks using wrappers. It measures time, adds variables and creates objects, which naturally causes overhead. Although, the probes are mostly attached around calls involving network communication and are triggered only during server requests, which makes the overhead insignificant. However, it is recommended to measure overhead for specific cases.
 
+**Attention Monkeypatching!** If you happen to notice Nodetime causing unexpected errors in your application, which wouldn't be the case without profilng enabled, please file an issue. This is super important for Nodetime's stability.
 
 
 ## License
