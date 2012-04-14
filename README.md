@@ -33,6 +33,8 @@ It is possible to get session id programmatically:
 
 ## Modes of Operation
 
+Profiler running in the application is automatically activated only at startup and when there is a profiling session from nodetime.com, i.e. the page is open in your browser. After profiling session is ended the profiler is automatically deactivated within minutes. 
+
 Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. Under load Nodetime will capture and send only the slowest requests and related information. In debug mode it will send all requests to the profiler server. 
 
 It is also possible to disable sending profiling data to the server and dump everything to the console by passing `stdout` or `headless` flag at initialization, e.g. `require('nodetime').profile({stdout: true})`
@@ -59,6 +61,10 @@ It is also possible to disable sending profiling data to the server and dump eve
 * `stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitly set `headless` to false if you want both, the dump and sending to Nodetime server
 * `debug` - used for debugging nodetime itself, so hopefully you won't need it
 
+`pause()` - deactivated the profiler
+
+`resume()` - activates the profiler
+
 
 ### Events:
 
@@ -68,11 +74,9 @@ It is also possible to disable sending profiling data to the server and dump eve
 
 
 
-## Run-time Overhead and Stability
+## Run-time Overhead
 
 Nodetime is based on probes hooked into API calls and callbacks using wrappers. It measures time, adds variables and creates objects, which naturally causes overhead. Although, the probes are mostly attached around calls involving network communication and are triggered only during server requests, which makes the overhead insignificant. However, it is recommended to measure overhead for specific cases.
-
-**Attention Monkeypatching!** If you happen to notice Nodetime causing unexpected errors in your application, which wouldn't be the case without profilng enabled, please file an issue. This is super important for Nodetime's stability.
 
 
 ## License

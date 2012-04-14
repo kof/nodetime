@@ -22,44 +22,29 @@
  */
 
 
-var proxy = require('../proxy');
-var stats = require('../stats');
+var mongoose = require('mongoose');
 
-var nt = global._nodetime;
+mongoose.connect('mongodb://localhost/test');
+
+var Schema = mongoose.Schema;
+var ObjectId = Schema.ObjectId;
+
+mongoose.model('TestDoc', new Schema({
+  test_id: ObjectId, 
+  test_str: String, 
+  test_date: Date 
+}));
 
 
-module.exports = function(obj) {
-  if(obj.version && obj.version.match(/^3\./)) return; // after 3.0 no need for express probe
+module.exports = function(cb) {
+  var TestDoc = mongoose.model('TestDoc');
+  testDoc = new TestDoc();
+  testDoc.test_str = "some string";
+  testDoc.test_date = new Date();
 
-  var handler = function() {
-    return function(req, res, next) {
-      try {
-        var begin = new Date().getTime(); 
-        var time = stats.time(true);
-        proxy.after(res, 'end', function(obj, args) {
-          if(!time.measure()) return;
-
-          stats.value('HTTP Server', 'Requests per minute', 1, undefined, 'sum');
-          stats.value('HTTP Server', 'Average response time', time.ms, 'ms', 'avg');
-          stats.sample(time, {'Type': 'HTTP', 
-              'Method': req.method, 
-              'URL': req.url, 
-              'Request headers': req.headers, 
-              'Status code': res.statusCode}, 
-              req.url);
-        });
-      }
-      catch(err) {
-        nt.error(err);
-      }   
-
-      next();
-    }
-  };
-
-  proxy.after(obj, 'createServer', function(obj, args, ret) {
-    ret.configure(function() {
-      ret.use(handler());
+  testDoc.save(function() {
+    TestDoc.find(function(arr) {
+      cb();
     });
   });
 };
