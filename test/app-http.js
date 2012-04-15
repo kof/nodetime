@@ -30,7 +30,7 @@ nodetime.on('sample', function(sample) {
   console.log('sample');
 });
 
-nodetime.profile({debug: true, stdout: false});
+nodetime.profile({debug: true, stdout: true});
 
 process.on('uncaughtException', function (err) {
   console.error(err, err.stack)

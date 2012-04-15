@@ -15,7 +15,7 @@ Install Nodetime with npm
 
     npm install nodetime 
 
-It should be the first require statement in your node application, e.g. at the first line of your main module 
+The following call should be placed before any other require statement in your application, e.g. at the first line of your main module
 
     require('nodetime').profile()
 
