@@ -15,7 +15,7 @@ Install Nodetime with npm
 
     npm install nodetime 
 
-It should be the first require statement in your node application, e.g. at the first line of your main module 
+The following call should be placed before any other require statement in your application, e.g. at the first line of your main module
 
     require('nodetime').profile()
 
@@ -32,6 +32,8 @@ It is possible to get session id programmatically:
 
 
 ## Modes of Operation
+
+Profiler running in the application is automatically activated only at startup and when there is a profiling session from nodetime.com, i.e. the page is open in your browser. After profiling session is ended the profiler is automatically deactivated within minutes. 
 
 Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. Under load Nodetime will capture and send only the slowest requests and related information. In debug mode it will send all requests to the profiler server. 
 
@@ -59,19 +61,22 @@ It is also possible to disable sending profiling data to the server and dump eve
 * `stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitly set `headless` to false if you want both, the dump and sending to Nodetime server
 * `debug` - used for debugging nodetime itself, so hopefully you won't need it
 
+`pause()` - deactivaties the profiler.
+
+`resume([seconds])` - activates the profiler for a given duration. If no `seconds` argument is specified, defaults to 180 seconds.
+
 
 ### Events:
 
 `on('session', function(id) {})` - Emitted when a unique session id is received from the server. The event is not emitted if in `headless` mode.
 
-`on('sample', function(sample) {})` - Sample object represents a profiled request. If an application is under some load, only slowest samples are emitted every minute. Otherwise samples are emitted after each request. **Important:** the stucture of sample object will not be kept backwards compatible in future versions. 
+`on('sample', function(sample) {})` - Sample object represents a profiled request. **Important:** the structure of sample object will not be kept backwards compatible in future versions. 
 
 
 
 ## Run-time Overhead
 
 Nodetime is based on probes hooked into API calls and callbacks using wrappers. It measures time, adds variables and creates objects, which naturally causes overhead. Although, the probes are mostly attached around calls involving network communication and are triggered only during server requests, which makes the overhead insignificant. However, it is recommended to measure overhead for specific cases.
-
 
 
 ## License
