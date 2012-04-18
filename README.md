@@ -61,16 +61,16 @@ It is also possible to disable sending profiling data to the server and dump eve
 * `stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitly set `headless` to false if you want both, the dump and sending to Nodetime server
 * `debug` - used for debugging nodetime itself, so hopefully you won't need it
 
-`pause()` - deactivated the profiler
+`pause()` - deactivaties the profiler.
 
-`resume()` - activates the profiler
+`resume([seconds])` - activates the profiler for a given duration. If no `seconds` argument is specified, defaults to 180 seconds.
 
 
 ### Events:
 
 `on('session', function(id) {})` - Emitted when a unique session id is received from the server. The event is not emitted if in `headless` mode.
 
-`on('sample', function(sample) {})` - Sample object represents a profiled request. If an application is under some load, only slowest samples are emitted every minute. Otherwise samples are emitted after each request. **Important:** the structure of sample object will not be kept backwards compatible in future versions. 
+`on('sample', function(sample) {})` - Sample object represents a profiled request. **Important:** the structure of sample object will not be kept backwards compatible in future versions. 
 
 
 
