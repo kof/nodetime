@@ -65,7 +65,7 @@ It is also possible to disable sending profiling data to the server and dump eve
 
 `on('sample', function(sample) {})` - Sample object represents a profiled request. **Important:** the structure of sample object will not be kept backwards compatible in future versions. 
 
-`on('call', function(point, time) {})` - Call events emit API calls directly. `point` parameter can be "start" and "done", specifying the point when the call was emitted. `time` objects represend call inforamtion and  has the following fields:  
+`on('call', function(point, time) {})` - Call events emit API calls directly. `point` parameter can be "start" and "done", specifying the point when the call was emitted. `time` object represents call inforamtion and  has the following fields:  
 
 * `id` - unique id of the call
 * `scope` - scope of the call, i.e. library, namespace or API name
