@@ -24,13 +24,13 @@
 
 var nodetime = require('nodetime');
 nodetime.on('session', function(token) { 
-  console.log('session', token);
+  //console.log('session', token);
 });
 nodetime.on('sample', function(sample) { 
-  console.log('sample');
+  //console.log('sample');
 });
 
-nodetime.profile({debug: true});
+nodetime.profile({debug: false, headless: false, dtrace: true});
 
 process.on('uncaughtException', function (err) {
   console.error(err, err.stack)

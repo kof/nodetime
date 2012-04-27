@@ -1,6 +1,6 @@
 {   
   "name" : "nodetime", 
-  "version" : "0.2.2",
+  "version" : "0.2.3",
   "description" : "Performance Profiler",
   "author": "Dmitri Melikyan <dmitri@rapidlogix.com>", 
   "homepage": "http://nodetime.com", 
@@ -16,7 +16,8 @@
     "url": "git://github.com/dmelikyan/nodetime.git"
   }, 
   "optionalDependencies": {
-    "timekit": "*"
+    "timekit": "*",
+    "dtrace-provider": "*"
   },
   "devDependencies": {
     "express": ">=2.5.0",

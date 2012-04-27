@@ -23,10 +23,10 @@
 
 
 var nMemcached = require('memcached');
-var memcached = new nMemcached("localhost:11211");
+var memcached = new nMemcached("127.0.0.1:11211");
 
 module.exports = function(cb) {
-  memcached.add('testkey', 10000, 'testval', function(err, result){
+  memcached.get('testkey', function(err, result){
     if(err) {
       console.error(err);
     }
