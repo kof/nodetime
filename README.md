@@ -37,7 +37,7 @@ Profiler running in the application is automatically activated only at startup a
 
 Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. Under load Nodetime will capture and send only the slowest requests and related information. In debug mode it will send all requests to the profiler server. 
 
-It is also possible to disable sending profiling data to the server and dump everything to the console by passing `headless` flag at initialization, e.g. `require('nodetime').profile({headless: true})`. Other possibilities to output profiling result through are local API, dtrace and stdout.
+It is also possible to disable sending profiling data to the server and dump everything to the console by passing `headless` flag at initialization, e.g. `require('nodetime').profile({headless: true})`. Other possibilities to output profiling result are through local API, dtrace and stdout.
 
 
 ## API
