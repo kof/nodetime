@@ -33,19 +33,11 @@ It is possible to get session id programmatically:
 
 ## Modes of Operation
 
-Profiler running in the application is automatically activated only at startup and when there is a profiling session from nodetime.com, i.e. the page is open in your browser. After profiling session is ended the profiler is automatically deactivated within minutes. 
+Profiler running in the application is automatically activated only at startup and when there is a profiling session from nodetime.com, i.e. the page is open in your browser. After profiling session is ended the profiler is automatically deactivated within minutes. If profiler runs in headless mode, it should be resumed programmatically using the API, otherwise it will be paused automatically. 
 
 Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. Under load Nodetime will capture and send only the slowest requests and related information. In debug mode it will send all requests to the profiler server. 
 
-It is also possible to disable sending profiling data to the server and dump everything to the console by passing `stdout` or `headless` flag at initialization, e.g. `require('nodetime').profile({stdout: true})`
-
-
- You can always get the samples by subscribing to `sample` event:
-
-    nodetime.on('sample', function(sample) {
-      // do something with the sample
-    });
-
+It is also possible to disable sending profiling data to the server and dump everything to the console by passing `headless` flag at initialization, e.g. `require('nodetime').profile({headless: true})`. Other possibilities to output profiling result through are local API, dtrace and stdout.
 
 
 ## API
@@ -58,6 +50,7 @@ It is also possible to disable sending profiling data to the server and dump eve
 `profile(options)` - starts the profiler. Options are:
 
 * `headless` - if true, no data is sent to the server
+* `dtrace` - activates firing of DTrace probes. Available only in OS X 64 bit and Solaris 32 bit. Provider name is `nodetime` and probe names are `api-call-start` and `api-call-done`. Argumets are as follows: `id`, `scope` and `command` 
 * `stdout` - if true, dumps samples using `console.log()`. Also sets `headless` to true. Explicitly set `headless` to false if you want both, the dump and sending to Nodetime server
 * `debug` - used for debugging nodetime itself, so hopefully you won't need it
 
@@ -71,6 +64,16 @@ It is also possible to disable sending profiling data to the server and dump eve
 `on('session', function(id) {})` - Emitted when a unique session id is received from the server. The event is not emitted if in `headless` mode.
 
 `on('sample', function(sample) {})` - Sample object represents a profiled request. **Important:** the structure of sample object will not be kept backwards compatible in future versions. 
+
+`on('call', function(point, time) {})` - Call events emit API calls directly. `point` parameter can be "start" and "done", specifying the point when the call was emitted. `time` objects represend call inforamtion and  has the following fields:  
+
+* `id` - unique id of the call
+* `scope` - scope of the call, i.e. library, namespace or API name
+* `command` - command, e.g. execute, get, set, etc.
+* `begin` - start time of the call
+* `end` - end time of the call
+* `ms` - duration of the call
+* `cpuTime` - time spend in CPU
 
 
 
