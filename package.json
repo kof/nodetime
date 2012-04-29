@@ -4,7 +4,7 @@
   "description" : "Performance Profiler",
   "author": "Dmitri Melikyan <dmitri@rapidlogix.com>", 
   "homepage": "http://nodetime.com", 
-  "keywords": ["profiling", "instrumentation", "response time", "real-time", "performance", "bottlenecks"],
+  "keywords": ["profiler", "profiling", "performance", "instrumentation", "response time", "performance", "bottlenecks", "dtrace"],
   "contributors": [
   ],
   "main": "./index.js",
