@@ -15,6 +15,9 @@
     "type": "git",
     "url": "git://github.com/dmelikyan/nodetime.git"
   }, 
+  "dependencies": {
+    "agent.io": "*",
+  },
   "optionalDependencies": {
     "timekit": "*",
     "dtrace-provider": "*"
