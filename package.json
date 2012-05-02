@@ -16,7 +16,7 @@
     "url": "git://github.com/dmelikyan/nodetime.git"
   }, 
   "dependencies": {
-    "agent.io": "*",
+    "agent.io": "*"
   },
   "optionalDependencies": {
     "timekit": "*",
