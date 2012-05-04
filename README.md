@@ -35,9 +35,14 @@ It is possible to get session id programmatically:
 
 Profiler running in the application is automatically activated only at startup and when there is a profiling session from nodetime.com, i.e. the page is open in your browser. After profiling session is ended the profiler is automatically deactivated within minutes. If profiler runs in headless mode, it should be resumed programmatically using the API, otherwise it will be paused automatically. 
 
-Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. Under load Nodetime will capture and send only the slowest requests and related information. In debug mode it will send all requests to the profiler server. 
+Nodetime automatically detects if an application is running under constant load, e.g. production, or it is being tested or debugged. If the server is under load Nodetime will capture and send only slowest requests and related information. A custom filtering of samples is possible at profiler level allowing to keep only necessary samples.
 
-It is also possible to disable sending profiling data to the server and dump everything to the console by passing `headless` flag at initialization, e.g. `require('nodetime').profile({headless: true})`. Other possibilities to output profiling result are through local API, dtrace and stdout.
+It is also possible to disable sending profiling data to the web console and dump everything to the console by passing `headless` flag at initialization, e.g. `require('nodetime').profile({headless: true})`. Other possibilities to output profiling result are through local API, dtrace and stdout.
+
+
+## Filtering
+
+By default Nodetime will send only slowest samples of requests and their operations to the profiler web console (though still emitting all samples on the local API level). For systems under load, this can result in making the faster but more important requests invisible. Filtering allows you to specify what exactly you want to see. For example, you can specify to sample only those requests, which are slower than 100ms or match a certain URL pattern. Or, requests, which have an underlying database call to a database on specific machine with given IP address. While API gives you the full power of programmatic filtering, profiling data viewer at nodetime.com makes it a few clicks to filter samples down to very specific ones. 
 
 
 ## API
@@ -58,6 +63,12 @@ It is also possible to disable sending profiling data to the server and dump eve
 
 `resume([seconds])` - activates the profiler for a given duration. If no `seconds` argument is specified, defaults to 180 seconds.
 
+`filter(test)` - sets sample filter. Filter makes it possible to restrict emitted samples. `test` is a function, which return true or false indicating wether to keep the sample or not, eg.
+
+    nodetime.filter(function(sample) {
+      return (sample._ms >= 100); // the sample is ignored if request took less than 100 ms
+    })
+
 
 ### Events:
 
@@ -75,6 +86,8 @@ It is also possible to disable sending profiling data to the server and dump eve
 * `ms` - duration of the call
 * `cpuTime` - time spend in CPU
 
+
+`on('value', function(value) {})` - Emits variable values, e.g. "average response time", "load average", etc. `value` is a JSON object with fields `scope`, `name`, `value`, `op` and a caouple of meta properties. 
 
 
 ## Run-time Overhead
