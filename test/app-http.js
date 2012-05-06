@@ -30,7 +30,7 @@ nodetime.on('sample', function(sample) {
   //console.log('sample');
 });
 
-nodetime.profile({debug: false, headless: false, dtrace: true});
+nodetime.profile({debug: true, headless: false, dtrace: true, server: 'http://dev.nodetime.com:8080'});
 
 process.on('uncaughtException', function (err) {
   console.error(err, err.stack)
